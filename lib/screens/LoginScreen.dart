@@ -128,6 +128,7 @@ Future<void> login(context) async {
   final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
     email: _correo.text,
     password: _contrasenia.text
+    
   );
 
   Navigator.push(context,
