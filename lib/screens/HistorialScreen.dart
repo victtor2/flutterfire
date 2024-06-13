@@ -33,16 +33,19 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: const Text('Historial'),
       ),
-      body: Cuerpo(),
+      body: Cuerpo(context),
     );
   }
 }
 
-Widget Cuerpo(){
+Widget Cuerpo(context){
   return(
     Column(
       children: <Widget>[
-        campoCompra()
+        campoCompra(),
+        campoImpuesto(),
+        campoSAldo(),
+        BotonGuardar(context)
       ],
     )
   );
@@ -98,19 +101,17 @@ Widget BotonGuardar(context){
     ElevatedButton(
       style: ButtonStyle(backgroundColor: WidgetStatePropertyAll(Colors.amber)),
       onPressed: (){
-      guardar();
+      guardar(context);
     },child: Text("Ir a Registro"))
   );
 }
 
-Future<void> guardarcontext) async {
+Future<void> guardar(context) async {
   DatabaseReference ref = FirebaseDatabase.instance.ref("users/123");
 
 await ref.set({
-  "name": "John",
-  "age": 18,
-  "address": {
-    "line1": "100 Mountain View"
-  }
+  "compra": _compra.text,
+  "impuesto": _impuesto.text,
+  "address": _saldo.text
 });
 }
